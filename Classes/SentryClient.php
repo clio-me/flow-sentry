@@ -189,7 +189,7 @@ class SentryClient
         if ($captureException) {
             $this->configureScope($extraData, $tags);
             if ($throwable instanceof Exception && $throwable->getStatusCode() === 404) {
-                Hub::getCurrent()->configureScope(static function (Scope $scope): void {
+                SentrySdk::getCurrentHub()->configureScope(static function (Scope $scope): void {
                     $scope->setLevel(Severity::warning());
                 });
                 $sentryEventId = \Sentry\captureException($throwable);
